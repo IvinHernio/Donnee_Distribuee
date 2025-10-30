@@ -16,20 +16,20 @@ L’objectif est de :
 
 ## ⚙️ Architecture technique
 
-(Image/StructureProjet.png)
+![](Image/StructureProjet.png)
 
 
 ## 🧩 Technologies utilisées
 
 |Logo| Composant | Technologie | Rôle |
 |----|-----------|-------------|------|
-|(Image/NIFI.png)| **NiFi** | apache nifi:1.28.0 | Collecte et routage des données depuis l’API |
-|(Image/KAFKA.png)| **Kafka** | Apache Kafka 3.5 | File de messages pour la diffusion temps réel |
-|(Image/SPARK.png)| **Spark** | apache spark:3.5.0 | Traitement et transformation des données |
-|(Image/PgAdmin.png)| **PostgreSQL** | PostgreSQL 15 | Stockage persistant et structuré |
-|(Image/PgAdmin.png)| **pgAdmin** | Interface web | Consultation et gestion de la base de données |
-|(Image/DOCKER.png)| **Docker Compose** | Orchestration | Démarrage automatisé de tous les services |
-|(Image/GRAFANA.png)| **Grafana** | grafana-enterprise:latest | Restitution graphique |
+|![](Image/NIFI.png)| **NiFi** | apache nifi:1.28.0 | Collecte et routage des données depuis l’API |
+|![](Image/KAFKA.png)| **Kafka** | Apache Kafka 3.5 | File de messages pour la diffusion temps réel |
+|![](Image/SPARK.png)| **Spark** | apache spark:3.5.0 | Traitement et transformation des données |
+|![](Image/PgAdmin.png)| **PostgreSQL** | PostgreSQL 15 | Stockage persistant et structuré |
+|![](Image/PgAdmin.png)| **pgAdmin** | Interface web | Consultation et gestion de la base de données |
+|![](Image/DOCKER.png)| **Docker Compose** | Orchestration | Démarrage automatisé de tous les services |
+|![](Image/GRAFANA.png)| **Grafana** | grafana-enterprise:latest | Restitution graphique |
 
 ---
 
@@ -37,7 +37,28 @@ L’objectif est de :
 
 ### Docker Compose :
 
-(docker-compose.py)
+Aperçu du fichier `docker-compose.py` :
+
+```python
+# docker-compose.py - aperçu
+version = "3.9"
+
+services = {
+    "nifi": {
+        "image": "apache/nifi:1.28.0",
+        "ports": ["8443:8443"],
+        ...
+    },
+    "kafka": {
+        "image": "confluentinc/cp-kafka:7.5.0",
+        ...
+    },
+    # (code tronqué)
+}
+
+```
+[Voir le fichier complet](docker-compose.py)
+
 
 ### 2️⃣ Accès aux interfaces :
 
@@ -54,7 +75,7 @@ L’objectif est de :
 - Prétraitement léger (filtrage, enrichissement).  
 - Envoi vers Kafka pour diffusion en temps réel.  
 
-(Image/StructureNIFI.png)
+![](Image/StructureNIFI.png)
 
 - InvokeHTTP : **Connexion à l’API** externe pour récupérer les données aéronautiques.
 - EvaluateJsonPath : **Analyse le JSON** reçu pour extraire les champs spécifiques
@@ -62,13 +83,13 @@ L’objectif est de :
 - PublishKafkaRecord : Envoie les données transformées **vers un topic Kafka**
 - LogAttribute : **Composant de debug** et de suivi
 
-### (Image/KAFKA.png) | 2️⃣ Apache Kafka
+### ![](Image/KAFKA.png) | 2️⃣ Apache Kafka
 - **Rôle :** File de messages pour diffuser les données en temps réel.  
 - Producteurs : NiFi envoie les données.  
 - Topics : organisent les flux par type de données.  
 - Consommateurs : Spark récupère les données pour traitement. 
 
-### (Image/SPARK.png) | 3️⃣ Apache Spark (Structured Streaming)
+### ![](Image/SPARK.png) | 3️⃣ Apache Spark (Structured Streaming)
 - **Rôle :** Traitement et nettoyage des flux en temps réel.  
 - Calculs sur flux en continu.  
 - Nettoyage, transformation et agrégation des données. 
@@ -89,14 +110,31 @@ Voici les grandes étapes du pipeline Spark :
 | 7️⃣ | **Écriture** | Insère les **aéroports dans PostgreSQL** |
 | 8️⃣ | **Exécution** | Laisse le **streaming tourner en continu** |
 
-(Streaming-processor.py)
+Aperçu du fichier `Streaming-processor.py` :
 
+```python
+# Streaming-processor.py - aperçu
+from pyspark.sql import SparkSession
+from pyspark.sql.functions import from_json, col, explode
+from pyspark.sql.types import StructType, StructField, StringType
 
-### 4️⃣ PostgreSQL + pgAdmin
+spark = SparkSession.builder.appName("AirportDataProcessing").getOrCreate()
+
+# Lecture du flux Kafka
+kafka_df = spark.readStream.format("kafka")\
+    .option("kafka.bootstrap.servers", "kafka:9093")\
+    .option("subscribe", "airports")\
+    .load()
+
+# (code tronqué)
+```
+[Voir le fichier complet](scripts/Streaming-processor.py)
+
+### ![](Image/PgAdmin.png) | 4️⃣ PostgreSQL + pgAdmin
 - **Rôle :** Stockage persistant et gestion de la base de données.  
 - pgAdmin pour explorer les tables et exécuter des requêtes.
 
-### 5️⃣ Grafana
+### ![](Image/GRAFANA.png) | 5️⃣ Grafana
 - **Rôle :** Visualisation graphique des données en temps réel.  
 - **Fonctionnalités principales :**  
   - Création de **dashboards** pour représenter les données d’aéroports.  
