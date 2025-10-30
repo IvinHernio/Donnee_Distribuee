@@ -23,13 +23,13 @@ L’objectif est de :
 
 |Logo| Composant | Technologie | Rôle |
 |----|-----------|-------------|------|
-|![](Image/NIFI.png)| **NiFi** | apache nifi:1.28.0 | Collecte et routage des données depuis l’API |
-|![](Image/KAFKA.png)| **Kafka** | Apache Kafka 3.5 | File de messages pour la diffusion temps réel |
-|![](Image/SPARK.png)| **Spark** | apache spark:3.5.0 | Traitement et transformation des données |
-|![](Image/PgAdmin.png)| **PostgreSQL** | PostgreSQL 15 | Stockage persistant et structuré |
-|![](Image/PgAdmin.png)| **pgAdmin** | Interface web | Consultation et gestion de la base de données |
-|![](Image/DOCKER.png)| **Docker Compose** | Orchestration | Démarrage automatisé de tous les services |
-|![](Image/GRAFANA.png)| **Grafana** | grafana-enterprise:latest | Restitution graphique |
+|<img src="Image/NIFI.png" width="80">| **NiFi** | apache nifi:1.28.0 | Collecte et routage des données depuis l’API |
+|<img src="Image/KAFKA.png" width="80">| **Kafka** | Apache Kafka 3.5 | File de messages pour la diffusion temps réel |
+|<img src="Image/SPARK.png" width="80">| **Spark** | apache spark:3.5.0 | Traitement et transformation des données |
+|<img src="Image/PgAdmin.png" width="80">| **PostgreSQL** | PostgreSQL 15 | Stockage persistant et structuré |
+|<img src="Image/PgAdmin.png" width="80">| **pgAdmin** | Interface web | Consultation et gestion de la base de données |
+|<img src="Image/DOCKER.png" width="80">| **Docker Compose** | Orchestration | Démarrage automatisé de tous les services |
+|<img src="Image/Grafana.png" width="80">| **Grafana** | grafana-enterprise:latest | Restitution graphique |
 
 ---
 
@@ -69,7 +69,7 @@ services = {
 | Spark Master| [http://localhost:8080](http://localhost:8080) |
 | Grafana     | [http://localhost:3000](http://localhost:3000) |
 
-### (Image/NIFI.png) | 1️⃣ Récupération des données avec Apache NiFi :
+### <img src="Image/NIFI.png" width="30"> 1️⃣ Récupération des données avec Apache NiFi :
 - **Rôle :** Collecte et routage des données depuis les API aéronautiques.  
 - Connecteurs vers différentes APIs.  
 - Prétraitement léger (filtrage, enrichissement).  
@@ -83,13 +83,13 @@ services = {
 - PublishKafkaRecord : Envoie les données transformées **vers un topic Kafka**
 - LogAttribute : **Composant de debug** et de suivi
 
-### ![](Image/KAFKA.png) | 2️⃣ Apache Kafka
+### <img src="Image/KAFKA.png" width="30"> 2️⃣ Apache Kafka
 - **Rôle :** File de messages pour diffuser les données en temps réel.  
 - Producteurs : NiFi envoie les données.  
 - Topics : organisent les flux par type de données.  
 - Consommateurs : Spark récupère les données pour traitement. 
 
-### ![](Image/SPARK.png) | 3️⃣ Apache Spark (Structured Streaming)
+### <img src="Image/SPARK.png" width="30"> 3️⃣ Apache Spark (Structured Streaming)
 - **Rôle :** Traitement et nettoyage des flux en temps réel.  
 - Calculs sur flux en continu.  
 - Nettoyage, transformation et agrégation des données. 
@@ -128,13 +128,13 @@ kafka_df = spark.readStream.format("kafka")\
 
 # (code tronqué)
 ```
-[Voir le fichier complet](scripts/Streaming-processor.py)
+[Voir le fichier complet](Streaming-processor.py)
 
-### ![](Image/PgAdmin.png) | 4️⃣ PostgreSQL + pgAdmin
+### <img src="Image/PgAdmin.png" width="30"> 4️⃣ PostgreSQL + pgAdmin
 - **Rôle :** Stockage persistant et gestion de la base de données.  
 - pgAdmin pour explorer les tables et exécuter des requêtes.
 
-### ![](Image/GRAFANA.png) | 5️⃣ Grafana
+### <img src="Image/Grafana.png" width="30"> 5️⃣ Grafana
 - **Rôle :** Visualisation graphique des données en temps réel.  
 - **Fonctionnalités principales :**  
   - Création de **dashboards** pour représenter les données d’aéroports.  
