@@ -16,7 +16,9 @@ L’objectif est de :
 
 ## ⚙️ Architecture technique
 
-![](Image/StructureProjet.png)
+<p align="center">
+  <img src="Image/StructureProjet.png" width="400">
+</p>
 
 
 ## 🧩 Technologies utilisées
@@ -97,7 +99,7 @@ services = {
 Afin de réaliser les traitements, un fichier PySpark a été crée : **Streaming-processor**
 Ce script gère le traitement en temps réel des données d’aéroports provenant de Kafka, avant de les insérer dans PostgreSQL.
 
-Voici les grandes étapes du pipeline Spark :
+**Voici les grandes étapes du pipeline Spark :**
 
 | 🧩 Étape | ⚙️ Fonction | 🧠 Description |
 |:--:|:--|:--|
@@ -134,8 +136,39 @@ kafka_df = spark.readStream.format("kafka")\
 - **Rôle :** Stockage persistant et gestion de la base de données.  
 - pgAdmin pour explorer les tables et exécuter des requêtes.
 
+Il y a dans l'API une vingtaine de colonnes. Toutes ont été récoltées et stockées dans PostgreSQL
+
+<p align="center">
+  <img src="Image/ColonnePgAdmin.png" width="400">
+</p>
+
+**Voici ci-dessous un échantillon de nos données**
+[](TableauPgAdmin.png)
+
+
 ### <img src="Image/Grafana.png" width="30"> 5️⃣ Grafana
 - **Rôle :** Visualisation graphique des données en temps réel.  
 - **Fonctionnalités principales :**  
   - Création de **dashboards** pour représenter les données d’aéroports.  
   - Graphiques, alertes et indicateurs clés (**KPI**).
+
+<p align="center">
+  <img src="Image/CodeGraph.png" width="400" style="margin-right: 20px;">
+  <img src="Image/Graph.png" width="250">
+</p>
+
+[](image/Carte.png)
+
+
+## 🏁 Conclusion
+
+Ce projet, réalisé dans le cadre du cours **Données Distribuées**, illustre la mise en place d’un **pipeline de données distribuées** complet pour le traitement en temps réel de données aéronautiques.  
+
+Grâce à l’intégration de **NiFi, Kafka, Spark, PostgreSQL et Grafana**, nous avons pu :  
+
+- Collecter et centraliser des données depuis une API aéronautique.  
+- Traiter et nettoyer ces flux en temps réel avec Spark Structured Streaming.  
+- Stocker les résultats de manière structurée et persistante dans PostgreSQL.  
+- Visualiser les informations et indicateurs clés via des dashboards Grafana.  
+
+Le projet démontre également l’importance de **Docker Compose** pour orchestrer facilement l’ensemble des services et faciliter le déploiement.  
