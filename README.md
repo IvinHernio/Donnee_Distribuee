@@ -143,8 +143,10 @@ Il y a dans l'API une vingtaine de colonnes. Toutes ont été récoltées et sto
 </p>
 
 **Voici ci-dessous un échantillon de nos données**
-[](image/TableauPgAdmin.png)
 
+<p align="center">
+  <img src="image/TableauPgAdmin.png" width="400">
+</p>
 
 ### <img src="Image/Grafana.png" width="30"> 5️⃣ Grafana
 - **Rôle :** Visualisation graphique des données en temps réel.  
