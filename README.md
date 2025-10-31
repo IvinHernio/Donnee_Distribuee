@@ -152,12 +152,16 @@ Il y a dans l'API une vingtaine de colonnes. Toutes ont été récoltées et sto
   - Création de **dashboards** pour représenter les données d’aéroports.  
   - Graphiques, alertes et indicateurs clés (**KPI**).
 
+**Voici par exemple deux graphiques :**
+
 <p align="center">
   <img src="Image/CodeGraph.png" width="400" style="margin-right: 20px;">
   <img src="Image/Graph.png" width="250">
 </p>
 
-[](image/Carte.png)
+<p align="center">
+  <img src="Image/Carte.png" width="600">
+</p>
 
 
 ## 🏁 Conclusion
