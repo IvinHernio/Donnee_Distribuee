@@ -143,7 +143,7 @@ Il y a dans l'API une vingtaine de colonnes. Toutes ont été récoltées et sto
 </p>
 
 **Voici ci-dessous un échantillon de nos données**
-[](TableauPgAdmin.png)
+[](image/TableauPgAdmin.png)
 
 
 ### <img src="Image/Grafana.png" width="30"> 5️⃣ Grafana
